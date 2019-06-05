@@ -23,3 +23,15 @@ label_map_file_name = 'models/research/object_detection/data/mscoco_label_map.pb
 label_map = label_map_util.load_labelmap(label_map_file_name)
 categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=90, use_display_name=True)
 
+
+
+with detection_graph.as_default():
+  with tf.Session() as sess:
+    ops = tf.get_default_graph().get_operations()
+    all_tensor_name = {output.name for op in ops for output in op.outputes}
+    tensor_dict = {}
+    for key in ['num_detections', 'detection_boxes', 'detection_scores', 'detection_classes', 'detection_masks']:
+      tensor_name = key + ':0'
+      if tensor_name in all_tensor_names:
+        tensor_dict[key] = tf.get_default_graph().get_tensor_by_name(tensor_name)
+        
