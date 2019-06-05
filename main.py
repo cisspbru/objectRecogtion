@@ -34,4 +34,7 @@ with detection_graph.as_default():
       tensor_name = key + ':0'
       if tensor_name in all_tensor_names:
         tensor_dict[key] = tf.get_default_graph().get_tensor_by_name(tensor_name)
-        
+     if tensor_name in all_tensor_names:
+      detection_boxes = tf.squeeze(tensor_dict['detection_boxes'], [0])
+      detection_masks = tf.squeeze(tensor_dict['detection_masks], [0])
+      real_num_detection_reframed = utils_ops_reframe_box_masks_to_image_masks(                                        
