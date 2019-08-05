@@ -8,6 +8,8 @@ from utils import label_maputil
 from utils import visualiztion_utils as vis_util
 import cv2
 
+%matplotlib notebook
+
 #model file path
 model_file = '/frozen_inference_graph.pb'
 detection_graph = tf.Graph() 
